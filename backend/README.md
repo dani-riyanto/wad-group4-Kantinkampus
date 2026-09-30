@@ -1,28 +1,15 @@
-# backend/ — sengaja kosong
+# Backend — Kantin Kampus Training Session API
 
-Kamu yang mengisi folder ini, mulai Sesi 2.
+Modul backend ini dibangun menggunakan **FastAPI** dengan arsitektur modular untuk menangani sistem pencatat sesi pelatihan internal domain **Kantin Kampus (Pesanan Makanan)**.
 
-Sesi 2, yang harus ada di sini sebelum kamu keluar:
-
-```
+## Struktur Direktori Backend
+```text
 backend/
-├── requirements.txt    # fastapi, uvicorn
+├── requirements.txt      # Daftar dependensi (FastAPI, Uvicorn, Pydantic)
 └── app/
     ├── __init__.py
-    └── main.py         # FastAPI() + GET /health -> 200 {"status": "ok"}
-```
-
-Titik mulai:
-
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
-pip install fastapi uvicorn
-pip freeze > requirements.txt
-uvicorn app.main:app --reload
-```
-
-`venv/` tidak di-commit — sudah diatur di `.gitignore`.
-
-Hapus berkas ini kalau sudah tidak perlu.
+    ├── main.py           # Inisialisasi FastAPI & Middleware CORS
+    ├── schemas.py        # Skema validasi Pydantic (In/Out terpisah)
+    └── routers/
+        ├── __init__.py
+        └── sessions.py   # Logika endpoint /sessions (B1 - B4)
