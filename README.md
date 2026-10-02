@@ -41,15 +41,16 @@ frontend/src/
 ├── services/
 │   └── api.js               (~25 baris)  -> Modul pembungkus Fetch API
 └── components/
-    ├── HeaderNav.vue        (~33 baris)  -> Navbar gelap & indikator status sistem
-    ├── DashboardBanner.vue  (~33 baris)  -> Banner judul (eyebrow + heading) & tanggal
+    ├── HeaderNav.vue        (~35 baris)  -> Navbar navy & badge Sistem aktif (hijau)
+    ├── DashboardBanner.vue  (~32 baris)  -> Banner judul (eyebrow + heading) & tanggal
     ├── DashboardStats.vue   (~44 baris)  -> Statistik ringkasan pesanan & pendapatan
-    ├── OrderForm.vue        (~100 baris) -> Form pendaftaran pesanan baru
+    ├── OrderForm.vue        (~93 baris)  -> Form pendaftaran pesanan baru
     ├── OrderList.vue        (~59 baris)  -> Kontainer daftar pesanan, pencarian, & tab status
-    ├── OrderItem.vue        (~64 baris)  -> Kartu item pesanan & aksi hapus
+    ├── OrderItem.vue        (~64 baris)  -> Kartu item pesanan, badge status & aksi hapus
     ├── QuantityStepper.vue  (~26 baris)  -> Stepper jumlah (v-model)
-    ├── SectionHeading.vue   (~34 baris)  -> Eyebrow label + heading + subjudul
+    ├── SectionHeading.vue   (~25 baris)  -> Eyebrow label + heading + subjudul
     ├── UiButton.vue         (~33 baris)  -> Tombol utama (hover: panah masuk)
+    ├── UiSelect.vue         (~42 baris)  -> Dropdown label + chevron-down Lucide
     ├── SiteFooter.vue       (~16 baris)  -> Footer band navy
     ├── StateLoading.vue     (~11 baris)  -> Tampilan indikator loading
     ├── StateEmpty.vue       (~11 baris)  -> Tampilan data kosong / hasil cari 0
@@ -116,19 +117,24 @@ Aplikasi frontend dapat diakses di browser pada URL `http://localhost:3000` (ata
 
 ## 🎨 Tema & Desain UI
 
-Desain navy editorial: tanpa sudut membulat & tanpa bayangan, band warna bergantian per section.
+Refactor desain bertema **navy editorial**: padat, tanpa bayangan, band warna bergantian per section.
 
-- **Warna**: `primary` `#15283d` (judul, band gelap, tombol), `body` `#3e5166`, `muted` `#607791`,
-  `surface-1` `#eef4f8`, `surface-2` `#e4f0f9`, `border` `#ccdce6`, `on-dark` `#c3d5e0`,
-  `danger` `#f53838`. Didefinisikan sekali sebagai token di `@theme` (`frontend/src/style.css`).
-- **Tipografi**: heading **Merriweather** (serif, bobot 400/700), teks & UI **Inter** — dimuat dari
-  Google Fonts di `index.html`.
+- **Warna**: didefinisikan sekali sebagai token `@theme` di `frontend/src/style.css` —
+  `primary` `#15283d`, `body` `#3e5166`, `muted` `#607791`, `surface-1` `#eef4f8`,
+  `surface-2` `#e4f0f9`, `border` `#ccdce6`, `on-dark` `#c3d5e0`, ditambah warna semantik
+  `success` `#15803d`, `warning` `#b45309`, `info` `#0369a1`, `danger` `#f53838`.
+- **Tipografi**: heading **Merriweather** (serif, 400/700, ukuran `24–48px`), teks & UI **Inter**
+  (400/500/600) — keduanya dimuat dari Google Fonts di `index.html`.
 - **Layout band**: header & footer `primary` → hero putih → ringkasan `surface-1` → konten putih.
-- **Eyebrow label**: uppercase Inter `15px` dengan `letter-spacing: .3em` di atas setiap judul section.
-- **Bentuk**: radius `0` pada tombol/kartu/input (lingkaran hanya untuk avatar & ikon), garis `1px`,
+  Padding vertikal ringkas (`py-8`–`py-10`); kolom form `sticky` pada layar `lg`.
+- **Eyebrow label**: uppercase Inter `13px` dengan `letter-spacing: .25em` di atas judul section.
+- **Badge** (`rounded-full`): `Sistem aktif` hijau di header; status pesanan memakai warna semantik
+  — Baru = biru (`info`), Diproses = amber (`warning`), Selesai = hijau (`success`); jumlah pesanan
+  memakai pill netral abu.
+- **Bentuk**: radius `0` pada tombol/kartu/input (badge & avatar pakai pill/lingkaran), garis `1px`,
   tanpa drop shadow, transisi halus `150–300ms`.
 - **Tombol utama**: padding `10px 40px`, latar `primary`; saat hover teks bergeser kiri dan anak
-  panah masuk (`UiButton.vue`).
+  panah masuk (`UiButton.vue`). Dropdown memakai chevron-down dari Lucide (`UiSelect.vue`).
 
 ---
 
