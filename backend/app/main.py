@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import sessions
+from app.routers import sessions, menus 
+from app.schemas import MenuCreate, MenuResponse
 
 app = FastAPI(title="Kantin Kampus Training Session API")
 
@@ -17,4 +18,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
+
 app.include_router(sessions.router)
+app.include_router(menus.router) 
+
+
+
+
