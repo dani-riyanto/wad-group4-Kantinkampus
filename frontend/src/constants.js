@@ -3,3 +3,5 @@ export const MENU_OPTIONS = [
   { name: 'Ayam Bakar Madu', price: 35000 },
   { name: 'Soto Ayam Lamongan', price: 30000 }
 ];
+
+export const STATUS_OPTIONS = ['Baru', 'Diproses', 'Selesai'];

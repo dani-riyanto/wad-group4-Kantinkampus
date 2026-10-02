@@ -10,7 +10,7 @@ Proyek ini dibangun untuk memenuhi kriteria dan **Requirement Wajib 100% Ujian T
 
 - **Framework**: Vue 3 (`<script setup>` Composition API)
 - **Build Tool**: Vite
-- **Styling**: Tailwind CSS (Dark Mode Theme)
+- **Styling**: Tailwind CSS v4 (konfigurasi CSS-first `@theme`, tanpa `tailwind.config.js`)
 - **HTTP Client**: Native Fetch API dengan `AbortController` (Lifecycle Cleanup)
 - **Backend Service**: FastAPI (Running on `http://localhost:8000`)
 
@@ -36,20 +36,24 @@ Seluruh komponen didekomposisi dengan sangat rapi dan modular:
 
 ```text
 frontend/src/
-├── App.vue                  (~92 baris)  -> State utama & Integrasi API
-├── constants.js             (~5 baris)   -> Preset menu & harga
+├── App.vue                  (~100 baris) -> State utama & layout band halaman
+├── constants.js             (~8 baris)   -> Preset menu & status pesanan
 ├── services/
 │   └── api.js               (~25 baris)  -> Modul pembungkus Fetch API
 └── components/
-    ├── HeaderNav.vue        (~20 baris)  -> Navbar & indikator status sistem
-    ├── DashboardBanner.vue  (~22 baris)  -> Banner judul & tanggal
+    ├── HeaderNav.vue        (~33 baris)  -> Navbar gelap & indikator status sistem
+    ├── DashboardBanner.vue  (~33 baris)  -> Banner judul (eyebrow + heading) & tanggal
     ├── DashboardStats.vue   (~44 baris)  -> Statistik ringkasan pesanan & pendapatan
-    ├── OrderForm.vue        (~90 baris)  -> Form pendaftaran pesanan baru
-    ├── OrderList.vue        (~60 baris)  -> Kontainer daftar pesanan, pencarian, & tab status
-    ├── OrderItem.vue        (~62 baris)  -> Kartu item pesanan & aksi hapus
-    ├── StateLoading.vue     (~10 baris)  -> Tampilan indikator loading
-    ├── StateEmpty.vue       (~14 baris)  -> Tampilan data kosong / hasil cari 0
-    └── StateError.vue       (~24 baris)  -> Tampilan error fetch & tombol Retry
+    ├── OrderForm.vue        (~100 baris) -> Form pendaftaran pesanan baru
+    ├── OrderList.vue        (~59 baris)  -> Kontainer daftar pesanan, pencarian, & tab status
+    ├── OrderItem.vue        (~64 baris)  -> Kartu item pesanan & aksi hapus
+    ├── QuantityStepper.vue  (~26 baris)  -> Stepper jumlah (v-model)
+    ├── SectionHeading.vue   (~34 baris)  -> Eyebrow label + heading + subjudul
+    ├── UiButton.vue         (~33 baris)  -> Tombol utama (hover: panah masuk)
+    ├── SiteFooter.vue       (~16 baris)  -> Footer band navy
+    ├── StateLoading.vue     (~11 baris)  -> Tampilan indikator loading
+    ├── StateEmpty.vue       (~11 baris)  -> Tampilan data kosong / hasil cari 0
+    └── StateError.vue       (~21 baris)  -> Tampilan error fetch & tombol Retry
 ```
 
 ---
@@ -112,9 +116,19 @@ Aplikasi frontend dapat diakses di browser pada URL `http://localhost:3000` (ata
 
 ## 🎨 Tema & Desain UI
 
-- **Color Palette**: Dark Mode (Kombinasi Charcoal `#181712`, Dark Olive `#22211b`, Warm Orange Accent `#d94814`, Emerald `#22c55e`).
-- **Typography**: Clean Sans & Serif Headings.
-- **Micro-interactions**: Hover effect, focus ring, smooth animation spinner.
+Desain navy editorial: tanpa sudut membulat & tanpa bayangan, band warna bergantian per section.
+
+- **Warna**: `primary` `#15283d` (judul, band gelap, tombol), `body` `#3e5166`, `muted` `#607791`,
+  `surface-1` `#eef4f8`, `surface-2` `#e4f0f9`, `border` `#ccdce6`, `on-dark` `#c3d5e0`,
+  `danger` `#f53838`. Didefinisikan sekali sebagai token di `@theme` (`frontend/src/style.css`).
+- **Tipografi**: heading **Merriweather** (serif, bobot 400/700), teks & UI **Inter** — dimuat dari
+  Google Fonts di `index.html`.
+- **Layout band**: header & footer `primary` → hero putih → ringkasan `surface-1` → konten putih.
+- **Eyebrow label**: uppercase Inter `15px` dengan `letter-spacing: .3em` di atas setiap judul section.
+- **Bentuk**: radius `0` pada tombol/kartu/input (lingkaran hanya untuk avatar & ikon), garis `1px`,
+  tanpa drop shadow, transisi halus `150–300ms`.
+- **Tombol utama**: padding `10px 40px`, latar `primary`; saat hover teks bergeser kiri dan anak
+  panah masuk (`UiButton.vue`).
 
 ---
 
