@@ -14,26 +14,14 @@ berjalan di URL publik di Sesi 14.
 Isi lima baris di bawah ini, ganti seluruh `<…>`. Lima baris, bukan lima paragraf.
 Commit berkas ini dalam PR `feature/kerangka` yang sama dengan artefak Sesi 2.
 
-**A1 · Domain.** Aplikasi ini untuk siapa, mengurus apa. Satu kalimat.
 
-> `<contoh: Aplikasi pencatatan kunjungan pasien untuk klinik kecil.>`
+Aplikasi manajemen pemesanan makanan dan stok menu untuk kantin kampus.
+Pelanggan memilih menu makanan, melakukan pemesanan, dan penjual memproses pesanan hingga selesai.
+menus — id, nama, harga, kategori, tersedia, dibuat_pada
+orders — id, menu_id (FK), customer_name, quantity, total_price, status, notes
+Total pendapatan harian yang dihitung dari akumulasi harga seluruh pesanan sukses.
 
-**A2 · Alur inti.** Siapa melakukan apa, lalu melihat apa. Satu kalimat. Inilah yang akan kamu
-demokan selama 90 detik di Sesi 15.
 
-> `<contoh: Petugas login, mencatat satu kunjungan pasien, lalu melihat grafik kunjungan per bulan.>`
-
-**A3 · Entitas induk.** Nama tabel + 4–6 kolom.
-
-> `<contoh: pasien — id, nama, tanggal_lahir, no_telepon, dibuat_pada>`
-
-**A4 · Entitas anak.** Nama tabel + 4–6 kolom, termasuk foreign key ke induk.
-
-> `<contoh: kunjungan — id, pasien_id (FK), tanggal, keluhan, biaya>`
-
-**A5 · Satu angka yang digambar grafik.** Angka agregat, bukan daftar.
-
-> `<contoh: jumlah kunjungan per bulan, 12 bulan terakhir>`
 
 ### Pembagian slice (diisi malam ini juga)
 

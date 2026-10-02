@@ -1,4 +1,4 @@
-# 🍜 DapurKita - Frontend Pesanan Restaurant
+# DapurKita - Frontend Pesanan Restaurant
 
 Sistem Manajemen Pesanan Restoran / Kantin modern berbasis web yang dikembangkan menggunakan **Vue 3 (Composition API)**, **Vite**, dan **Tailwind CSS**. Aplikasi ini terintegrasi langsung dengan backend **FastAPI** untuk pengelolaan data pesanan secara real-time.
 
@@ -6,7 +6,7 @@ Proyek ini dibangun untuk memenuhi kriteria dan **Requirement Wajib 100% Ujian T
 
 ---
 
-## 🛠️ Teknologi & Tools
+## 1. Prasyarat
 
 - **Framework**: Vue 3 (`<script setup>` Composition API)
 - **Build Tool**: Vite
@@ -16,7 +16,7 @@ Proyek ini dibangun untuk memenuhi kriteria dan **Requirement Wajib 100% Ujian T
 
 ---
 
-## 📋 Pemenuhan Kriteria Requirement UTS
+## 2. Layanan
 
 | Kode | Requirement | Status | Deskripsi Implementasi |
 | :--- | :--- | :---: | :--- |
@@ -30,7 +30,7 @@ Proyek ini dibangun untuk memenuhi kriteria dan **Requirement Wajib 100% Ujian T
 
 ---
 
-## 📁 Struktur Komponen & Baris Kode
+## Struktur Komponen & Baris Kode
 
 Seluruh komponen didekomposisi dengan sangat rapi dan modular:
 
@@ -59,7 +59,7 @@ frontend/src/
 
 ---
 
-## 🔌 Spesifikasi Integrasi API Backend
+## Spesifikasi Integrasi API Backend
 
 Backend FastAPI berjalan di `http://localhost:8000` dengan endpoint berikut:
 
@@ -84,7 +84,7 @@ Backend FastAPI berjalan di `http://localhost:8000` dengan endpoint berikut:
 
 ---
 
-## 🚀 Panduan Memulai (Getting Started)
+## 3. Cara menjalankan
 
 ### 1. Prasyarat
 Pastikan Anda sudah menginstal:
@@ -115,7 +115,7 @@ Aplikasi frontend dapat diakses di browser pada URL `http://localhost:3000` (ata
 
 ---
 
-## 🎨 Tema & Desain UI
+## Tema & Desain UI
 
 Refactor desain bertema **navy editorial**: padat, tanpa bayangan, band warna bergantian per section.
 
@@ -138,6 +138,27 @@ Refactor desain bertema **navy editorial**: padat, tanpa bayangan, band warna be
 
 ---
 
-## 👤 Penulis / Kelompok
+## Penulis / Kelompok
 - **WAD Group 4 - Kantinkampus**
 - **Mata Kuliah**: Web Application Development (UTS)
+
+## 4. Cara memverifikasi
+Gunakan perintah berikut untuk memeriksa kelengkapan tugas:
+```bash
+python verify.py --sesi 2
+```
+
+## 5. Masalah yang sering muncul
+- **Port 8000 terpakai:** Matikan proses uvicorn sebelumnya.
+- **CORS Error:** Pastikan middleware CORS di `main.py` sudah dikonfigurasi ke `*`.
+```
+
+---
+
+### Langkah 2: Jalankan Verifikasi Ulang
+Simpan file tersebut, lalu jalankan perintah:
+```powershell
+python verify.py --sesi 2
+```
+
+---

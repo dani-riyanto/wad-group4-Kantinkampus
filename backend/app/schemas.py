@@ -13,3 +13,12 @@ class SessionResponse(SessionCreate):
     id: int
     order_number: str
     time: str
+
+class MenuCreate(BaseModel):
+    nama: str = Field(..., min_length=1, description="Nama menu")
+    harga: int = Field(..., ge=0, description="Harga menu dalam Rupiah")
+    kategori: str = Field(..., description="Kategori menu: Makanan, Minuman, dll")
+    tersedia: bool = Field(True, description="Status ketersediaan menu")
+
+class MenuResponse(MenuCreate):
+    id: int
