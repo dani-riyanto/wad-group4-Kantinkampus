@@ -1,98 +1,135 @@
 SESSIONS_DATA = [
     {
         "id": 1,
-        "title": "Pelatihan Standar Kasir Kantin & Input Pesanan",
-        "trainer": "Pak Budi",
-        "food_menu": "Nasi Goreng Spesial",
-        "participants_count": 12,
-        "date": "2026-10-01"
+        "order_number": "#1048",
+        "time": "13.02",
+        "customer_name": "Alya Putri",
+        "menu": "Nasi Goreng Kampung",
+        "quantity": 2,
+        "total_price": 56000,
+        "status": "Baru",
+        "notes": "Tidak pedas"
     },
     {
         "id": 2,
-        "title": "Simulasi Handling Komplain Pelanggan Mie Ayam",
-        "trainer": "Bu Siti",
-        "food_menu": "Mie Ayam Bakso",
-        "participants_count": 10,
-        "date": "2026-10-02"
+        "order_number": "#1047",
+        "time": "12.27",
+        "customer_name": "Bima Pratama",
+        "menu": "Ayam Bakar Madu",
+        "quantity": 1,
+        "total_price": 35000,
+        "status": "Diproses",
+        "notes": "Sambal dipisah"
     },
     {
         "id": 3,
-        "title": "Manajemen Stok dan Pick-up Pesanan Soto Betawi",
-        "trainer": "Pak Joko",
-        "food_menu": "Soto Betawi Daging",
-        "participants_count": 15,
-        "date": "2026-10-03"
+        "order_number": "#1046",
+        "time": "11.32",
+        "customer_name": "Citra Lestari",
+        "menu": "Soto Ayam Lamongan",
+        "quantity": 3,
+        "total_price": 90000,
+        "status": "Selesai",
+        "notes": "Tanpa catatan khusus"
     },
+    # --- Data Tambahan untuk memenuhi minimal 12 baris ---
     {
         "id": 4,
-        "title": "Pelatihan Kebersihan dan Hygiene Pembuatan Burger",
-        "trainer": "Chef Rina",
-        "food_menu": "Crispy Chicken Burger",
-        "participants_count": 8,
-        "date": "2026-10-04"
+        "order_number": "#1045",
+        "time": "11.15",
+        "customer_name": "Dimas Anggara",
+        "menu": "Nasi Goreng Kampung",
+        "quantity": 1,
+        "total_price": 28000,
+        "status": "Selesai",
+        "notes": ""
     },
     {
         "id": 5,
-        "title": "SOP Penggunaan Mesin POS Digital Kantin",
-        "trainer": "Pak Budi",
-        "food_menu": "Aneka Juice Buah",
-        "participants_count": 14,
-        "date": "2026-10-05"
+        "order_number": "#1044",
+        "time": "10.50",
+        "customer_name": "Eka Salsabila",
+        "menu": "Es Teh Manis",
+        "quantity": 2,
+        "total_price": 10000,
+        "status": "Selesai",
+        "notes": "Kurangi manis"
     },
     {
         "id": 6,
-        "title": "Teknik Cepat Packing Pesanan Takeaway Gado-Gado",
-        "trainer": "Bu Siti",
-        "food_menu": "Gado-Gado Betawi",
-        "participants_count": 10,
-        "date": "2026-10-06"
+        "order_number": "#1043",
+        "time": "10.30",
+        "customer_name": "Fajar Nugraha",
+        "menu": "Ayam Bakar Madu",
+        "quantity": 2,
+        "total_price": 70000,
+        "status": "Diproses",
+        "notes": "Pedes sedang"
     },
     {
         "id": 7,
-        "title": "Manajemen Antrean Peak Hour Jam Istirahat",
-        "trainer": "Pak Joko",
-        "food_menu": "Paket Nasi Ayam Penyet",
-        "participants_count": 20,
-        "date": "2026-10-07"
+        "order_number": "#1042",
+        "time": "10.15",
+        "customer_name": "Gita Gutawa",
+        "menu": "Nasi Putih",
+        "quantity": 1,
+        "total_price": 5000,
+        "status": "Baru",
+        "notes": ""
     },
     {
         "id": 8,
-        "title": "Pengecekan Kualitas Bahan Baku Es Teh & Minuman",
-        "trainer": "Chef Rina",
-        "food_menu": "Es Teh Manis Jumbo",
-        "participants_count": 9,
-        "date": "2026-10-08"
+        "order_number": "#1041",
+        "time": "09.45",
+        "customer_name": "Hadi Prasetyo",
+        "menu": "Soto Ayam Lamongan",
+        "quantity": 1,
+        "total_price": 30000,
+        "status": "Selesai",
+        "notes": "Banyakin koya"
     },
     {
         "id": 9,
-        "title": "Simulasi Refund dan Void Pesanan Salah Input",
-        "trainer": "Pak Budi",
-        "food_menu": "Ketoprak Mang Udin",
-        "participants_count": 11,
-        "date": "2026-10-09"
+        "order_number": "#1040",
+        "time": "09.10",
+        "customer_name": "Intan Permata",
+        "menu": "Mie Ayam Bakso",
+        "quantity": 2,
+        "total_price": 40000,
+        "status": "Selesai",
+        "notes": "Satu tanpa daun bawang"
     },
     {
         "id": 10,
-        "title": "Pelatihan Pembuatan Laporan Shift Harian",
-        "trainer": "Bu Siti",
-        "food_menu": "Bubur Ayam Spesial",
-        "participants_count": 12,
-        "date": "2026-10-10"
+        "order_number": "#1039",
+        "time": "08.45",
+        "customer_name": "Joko Susilo",
+        "menu": "Es Jeruk",
+        "quantity": 1,
+        "total_price": 8000,
+        "status": "Diproses",
+        "notes": "Es nya sedikit aja"
     },
     {
         "id": 11,
-        "title": "Handling Pesanan Khusus (Tanpa MSG / Alergi)",
-        "trainer": "Chef Rina",
-        "food_menu": "Capcay Kuah Seafood",
-        "participants_count": 7,
-        "date": "2026-10-11"
+        "order_number": "#1038",
+        "time": "08.20",
+        "customer_name": "Kartika Sari",
+        "menu": "Nasi Goreng Kampung",
+        "quantity": 1,
+        "total_price": 28000,
+        "status": "Selesai",
+        "notes": "Pedas mampus"
     },
     {
         "id": 12,
-        "title": "Evaluasi Bulanan Pelayanan Tenant Kantin",
-        "trainer": "Pak Joko",
-        "food_menu": "Bakso Malang Komplit",
-        "participants_count": 18,
-        "date": "2026-10-12"
+        "order_number": "#1037",
+        "time": "07.55",
+        "customer_name": "Lukman Hakim",
+        "menu": "Teh Tawar Panas",
+        "quantity": 1,
+        "total_price": 3000,
+        "status": "Selesai",
+        "notes": ""
     }
 ]
