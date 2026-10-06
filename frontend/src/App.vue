@@ -5,6 +5,7 @@ import DashboardBanner from './components/DashboardBanner.vue'
 import DashboardStats from './components/DashboardStats.vue'
 import OrderForm from './components/OrderForm.vue'
 import OrderList from './components/OrderList.vue'
+import SiteFooter from './components/SiteFooter.vue'
 import { fetchOrders, createOrder, deleteOrder } from './services/api.js'
 
 const orders = ref([])
@@ -78,21 +79,22 @@ const handleDeleteOrder = async (id) => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-[#181712] text-[#f3f3f0] font-sans px-4 md:px-8 lg:px-16 pb-16">
-    <div class="max-w-6xl mx-auto">
-      <HeaderNav />
-      <DashboardBanner />
-      <DashboardStats :orders="orders" />
-
-      <main class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div class="lg:col-span-5">
+  <div class="min-h-screen bg-white font-sans text-body">
+    <HeaderNav />
+    <DashboardBanner />
+    <DashboardStats :orders="orders" />
+    <main class="bg-white">
+      <div class="container grid grid-cols-1 gap-8 py-8 sm:py-10 lg:grid-cols-12">
+        <div class="lg:col-span-5 lg:sticky lg:top-6 lg:self-start">
           <OrderForm :is-submitting="isSubmitting" :server-error="serverError" @create-order="handleCreateOrder" />
         </div>
         <div class="lg:col-span-7">
           <OrderList :orders="filteredOrders" :loading="loading" :error="error" v-model:searchQuery="searchQuery"
             v-model:activeTab="activeTab" @retry-fetch="loadOrders" @delete-order="handleDeleteOrder" />
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
+
+    <SiteFooter />
   </div>
 </template>

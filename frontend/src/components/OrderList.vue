@@ -1,4 +1,5 @@
 <script setup>
+import SectionHeading from './SectionHeading.vue'
 import OrderItem from './OrderItem.vue'
 import StateLoading from './StateLoading.vue'
 import StateEmpty from './StateEmpty.vue'
@@ -14,43 +15,45 @@ const props = defineProps({
 
 defineEmits(['update:searchQuery', 'update:activeTab', 'retry-fetch', 'delete-order'])
 const tabs = ['Semua', 'Baru', 'Diproses', 'Selesai']
+const tabClass = tab => props.activeTab === tab
+  ? 'border border-primary bg-primary px-4 py-2 text-sm font-semibold text-white'
+  : 'border border-border bg-white px-4 py-2 text-sm font-semibold text-muted transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary'
 </script>
 
 <template>
-  <div class="bg-[#22211b] p-6 rounded-2xl border border-[#333129]">
-    <div class="flex items-center justify-between mb-4">
-      <div>
-        <span class="text-xs font-semibold tracking-wider text-[#9e9b8f] uppercase">Daftar Pesanan</span>
-        <h3 class="font-serif text-2xl text-white">Pesanan terkini</h3>
+  <div>
+    <SectionHeading eyebrow="Daftar Pesanan" title="Pesanan terkini" level="h3" class="mb-5" />
+
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div class="relative w-full sm:max-w-xs">
+        <label for="search_input" class="sr-only">Cari pesanan</label>
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+          class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.5-3.5" />
+        </svg>
+        <input id="search_input" :value="searchQuery" @input="$emit('update:searchQuery', $event.target.value)"
+          type="search" placeholder="Cari nama, menu, atau nomor..."
+          class="w-full appearance-none border border-border bg-white py-2.5 pl-10 pr-4 text-base text-primary placeholder:text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
       </div>
-      <span class="text-xs text-[#9e9b8f] bg-[#181712] px-3 py-1 rounded-full border border-[#3c3a30]">
+      <span class="self-start rounded-full border border-border bg-surface-1 px-3 py-1 text-[13px] font-semibold text-muted">
         {{ orders.length }} pesanan
       </span>
     </div>
 
-    <div class="mb-4">
-      <label for="search_input" class="sr-only">Cari pesanan</label>
-      <div class="relative">
-        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#706e63]">🔍</span>
-        <input id="search_input" :value="searchQuery" @input="$emit('update:searchQuery', $event.target.value)"
-          type="text" placeholder="Cari nama, menu, atau nomor..."
-          class="w-full bg-[#181712] border border-[#3c3a30] rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-[#706e63] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d94814]" />
+    <div class="mt-5 flex flex-wrap gap-2">
+      <button v-for="tab in tabs" :key="tab" type="button" @click="$emit('update:activeTab', tab)"
+        :aria-pressed="activeTab === tab" :class="tabClass(tab)">{{ tab }}</button>
+    </div>
+
+    <div class="mt-6" aria-live="polite">
+      <StateLoading v-if="loading" />
+      <StateError v-else-if="error" :error-message="error" @retry="$emit('retry-fetch')" />
+      <StateEmpty v-else-if="orders.length === 0" />
+      <div v-else class="space-y-4">
+        <OrderItem v-for="order in orders" :key="order.id" :order="order" @delete-order="$emit('delete-order', $event)" />
       </div>
-    </div>
-
-    <div class="flex space-x-2 mb-6 overflow-x-auto pb-1">
-      <button v-for="tab in tabs" :key="tab" @click="$emit('update:activeTab', tab)"
-        :class="['px-3 py-1.5 text-xs rounded-lg transition font-medium focus-visible:ring-2 focus-visible:ring-[#d94814]',
-          activeTab === tab ? 'bg-[#d94814] text-white' : 'bg-[#181712] text-[#9e9b8f] hover:text-white border border-[#3c3a30]']">
-        {{ tab }}
-      </button>
-    </div>
-
-    <StateLoading v-if="loading" />
-    <StateError v-else-if="error" :error-message="error" @retry="$emit('retry-fetch')" />
-    <StateEmpty v-else-if="orders.length === 0" />
-    <div v-else>
-      <OrderItem v-for="order in orders" :key="order.id" :order="order" @delete-order="$emit('delete-order', $event)" />
     </div>
   </div>
 </template>

@@ -8,7 +8,7 @@ Sesi 16 dan menjadi dasar UAS Part A — tiap mahasiswa mempertahankan **slice-n
 | # | Slice | Nama lengkap | NIM | Akun GitHub | Peran ketua |
 |---|---|---|---|---|---|
 | 1 | Auth & user | `<nama>` | `<NIM>` | `@<username>` | |
-| 2 | CRUD entitas induk | `<nama>` | `<NIM>` | `@<username>` | |
+| 2 | CRUD entitas induk | `<SENTOT ALI BASAH>` | `<24120510004>` | `@<sentot-AB>` | |
 | 3 | Entitas anak + relasi | `<nama>` | `<NIM>` | `@<username>` | |
 | 4 | Endpoint agregat + grafik | `<nama>` | `<NIM>` | `@<username>` | |
 
