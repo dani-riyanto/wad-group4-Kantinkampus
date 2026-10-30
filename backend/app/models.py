@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, Boolean, TIMESTAMP, text, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, Boolean, TIMESTAMP, func, text, ForeignKey
 from sqlalchemy.orm import relationship
 from app.database import Base
 
@@ -9,8 +9,8 @@ class MenuItem(Base):
     nama = Column(String(100), nullable=False, unique=True)
     harga = Column(Float, nullable=False)
     kategori = Column(String(50), nullable=False) 
-    tersedia = Column(Boolean, server_default=text("true"), nullable=False)
-    created_at = Column(TIMESTAMP(timezone=True), server_default=text("now()"), nullable=False)
+    tersedia = Column(Boolean, server_default=text("1"), nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True), server_default=func.now(), nullable=False)
 
 class Order(Base):
     __tablename__ = "orders"
@@ -24,6 +24,6 @@ class Order(Base):
     total_price = Column(Float, nullable=False)
     status = Column(String(30), server_default="Baru", nullable=False)
     notes = Column(String(255), nullable=True)       # <--- Dan ini
-    created_at = Column(TIMESTAMP(timezone=True), server_default=text("now()"), nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True), server_default=func.now(), nullable=False)
 
     menu_item = relationship("MenuItem")
