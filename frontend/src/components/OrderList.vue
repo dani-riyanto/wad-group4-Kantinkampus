@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 import SectionHeading from './SectionHeading.vue'
 import StateLoading from './StateLoading.vue'
 import StateError from './StateError.vue'
@@ -11,7 +10,8 @@ const props = defineProps({
   loading: Boolean,
   error: String,
   searchQuery: String,
-  activeTab: String
+  activeTab: String,
+  isAdmin: Boolean
 })
 
 // HANYA BOLEH ADA SATU defineEmits SEPERTI INI
@@ -70,6 +70,7 @@ const tabClass = (tab) => {
           v-for="order in orders" 
           :key="order.id" 
           :order="order" 
+          :is-admin="isAdmin"
           @delete-order="$emit('delete-order', $event)" 
           @update-order="$emit('update-order', $event)" 
         />

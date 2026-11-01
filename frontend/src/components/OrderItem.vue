@@ -2,7 +2,8 @@
 import { computed } from 'vue'
 
 const props = defineProps({
-  order: { type: Object, required: true }
+  order: { type: Object, required: true },
+  isAdmin: Boolean
 })
 
 const statusClass = (status) => {
@@ -48,24 +49,16 @@ const formatPrice = (price) => {
       <div class="flex items-start gap-3">
         <span class="border border-border bg-surface-1 px-2 py-0.5 text-[15px] font-semibold text-primary tabular-nums">{{ order.quantity }}x</span>
         <div>
-          <p class="font-serif text-base font-bold text-primary">{{ order.menu }}</p>
+          <p class="font-serif text-base font-bold text-primary">{{ order.menu_item?.nama || 'Menu dihapus' }}</p>
           <p class="mt-1 text-[15px] leading-[23px] italic text-muted">{{ order.notes || 'Tanpa catatan' }}</p>
         </div>
       </div>
       <p class="font-serif text-lg text-primary tabular-nums">Rp {{ formatPrice(order.total_price) }}</p>
     </div>
-    <div class="...">
-  {{ order.menu_item?.nama || 'Menu dihapus' }} 
-</div>
-
-<!-- Tampilkan Harga -->
-<div class="...">
-  Rp {{ order.total_price.toLocaleString('id-ID') }}
-</div>
     <div class="mt-4 flex flex-wrap items-center justify-end gap-6 border-t border-border pt-3 text-[15px]">
-      <button @click="emit('update-order', order)" class="text-muted hover:text-primary...">
-  Ubah
-</button>
+      <button type="button" @click="emit('update-order', order)" class="text-muted hover:text-primary">
+        {{ isAdmin ? 'Ubah status' : 'Ubah pesanan' }}
+      </button>
       <button type="button" @click="handleDelete" :aria-label="`Hapus pesanan ${props.order.order_number}`"
         class="border-b border-danger pb-1 text-danger transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-danger">
         Hapus

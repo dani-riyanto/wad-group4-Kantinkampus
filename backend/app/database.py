@@ -2,6 +2,7 @@
 import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
+from sqlalchemy import inspect
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 # load_dotenv() akan otomatis mencari file .env di folder backend/
