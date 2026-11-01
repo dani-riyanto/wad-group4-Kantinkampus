@@ -26,7 +26,6 @@ class UserResponse(BaseModel):
 
 class AuthSessionResponse(BaseModel):
     user: UserResponse
-    csrf_token: str
 
 class SessionCreate(BaseModel):
     customer_name: str = Field(..., min_length=2, description="Nama pelanggan")

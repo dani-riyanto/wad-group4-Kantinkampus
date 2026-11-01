@@ -5,7 +5,6 @@ import UiButton from './UiButton.vue'
 import { createMenu } from '../services/api.js'
 
 const emit = defineEmits(['menu-added'])
-const props = defineProps({ csrfToken: { type: String, required: true } })
 
 const form = reactive({
   nama: '',
@@ -37,7 +36,7 @@ const handleSubmit = async () => {
       tersedia: form.tersedia
     }
     
-    await createMenu(payload, props.csrfToken)
+    await createMenu(payload)
     
     // Reset form setelah berhasil
     form.nama = ''

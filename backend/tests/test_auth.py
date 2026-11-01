@@ -41,8 +41,9 @@ class AuthorizationWorkflowTest(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200, response.text)
         self.assertNotIn("access_token", response.json())
+        self.assertNotIn("csrf_token", response.json())
         self.assertIn("HttpOnly", response.headers["set-cookie"])
-        return response.json()["csrf_token"]
+        return self.client.cookies.get("csrf_token")
 
     def test_authentication_and_role_ownership_are_enforced(self):
         self.assertEqual(self.client.get("/sessions").status_code, 401)

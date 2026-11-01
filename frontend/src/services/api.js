@@ -23,8 +23,16 @@ async function request(path, options = {}) {
   return res.json()
 }
 
-function csrfHeaders(csrfToken) {
-  return { 'X-CSRF-Token': csrfToken }
+function csrfHeaders() {
+  const csrfCookie = document.cookie
+    .split(';')
+    .map(cookie => cookie.trim())
+    .find(cookie => cookie.startsWith('csrf_token='))
+  const csrfToken = csrfCookie?.slice('csrf_token='.length)
+  if (!csrfToken) {
+    throw new Error('Token CSRF tidak tersedia. Silakan login kembali.')
+  }
+  return { 'X-CSRF-Token': decodeURIComponent(csrfToken) }
 }
 
 export function login(username, password) {
@@ -45,29 +53,29 @@ export function hasSessionHint() {
     .some(cookie => cookie.trim().startsWith('csrf_token='))
 }
 
-export function logout(csrfToken) {
+export function logout() {
   return request('/auth/logout', {
     method: 'DELETE',
-    headers: csrfHeaders(csrfToken)
+    headers: csrfHeaders()
   })
 }
 
-export function updateProfile(csrfToken, userId, displayName) {
+export function updateProfile(userId, displayName) {
   return request(`/users/${userId}`, {
     method: 'PATCH',
     headers: {
-      ...csrfHeaders(csrfToken),
+      ...csrfHeaders(),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ display_name: displayName })
   })
 }
 
-export function createUser(csrfToken, username, password) {
+export function createUser(username, password) {
   return request('/users', {
     method: 'POST',
     headers: {
-      ...csrfHeaders(csrfToken),
+      ...csrfHeaders(),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ username, password })
@@ -78,10 +86,10 @@ export function fetchUsers() {
   return request('/users')
 }
 
-export function deleteUser(csrfToken, userId) {
+export function deleteUser(userId) {
   return request(`/users/${userId}`, {
     method: 'DELETE',
-    headers: csrfHeaders(csrfToken)
+    headers: csrfHeaders()
   })
 }
 
@@ -92,21 +100,21 @@ export async function fetchOrders(search = '', signal = null) {
   return request(`/sessions?${params.toString()}`, { signal })
 }
 
-export async function createOrder(orderData, csrfToken) {
+export async function createOrder(orderData) {
   return request('/sessions', {
     method: 'POST',
     headers: {
-      ...csrfHeaders(csrfToken),
+      ...csrfHeaders(),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(orderData)
   });
 }
 
-export async function deleteOrder(id, csrfToken) {
+export async function deleteOrder(id) {
   return request(`/sessions/${id}`, {
     method: 'DELETE',
-    headers: csrfHeaders(csrfToken)
+    headers: csrfHeaders()
   })
 }
 
@@ -114,22 +122,22 @@ export async function fetchMenus() {
   return request('/menus')
 }
 
-export async function updateOrder(id, data, csrfToken) {
+export async function updateOrder(id, data) {
   return request(`/sessions/${id}`, {
     method: 'PATCH',
     headers: {
-      ...csrfHeaders(csrfToken),
+      ...csrfHeaders(),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
   })
 }
 
-export async function createMenu(menuData, csrfToken) {
+export async function createMenu(menuData) {
   return request('/menus', {
     method: 'POST',
     headers: {
-      ...csrfHeaders(csrfToken),
+      ...csrfHeaders(),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(menuData)

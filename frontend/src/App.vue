@@ -32,7 +32,6 @@ const searchQuery = ref('')
 const activeTab = ref('Semua')
 const currentUser = ref(null)
 const users = ref([])
-const csrfToken = ref('')
 const authBusy = ref(false)
 const authError = ref('')
 const authMessage = ref('')
@@ -80,7 +79,6 @@ watch(searchQuery, () => {
 
 const expireAuth = () => {
   currentUser.value = null
-  csrfToken.value = ''
   orders.value = []
   users.value = []
   authError.value = 'Sesi berakhir. Silakan login kembali.'
@@ -95,7 +93,6 @@ onMounted(async () => {
   try {
     const session = await getAuthSession()
     currentUser.value = session.user
-    csrfToken.value = session.csrf_token
     await loadOrders()
     await loadUsers()
   } catch (err) {
@@ -122,7 +119,7 @@ const handleCreateOrder = async (orderData, resetFn) => {
   isSubmitting.value = true
   serverError.value = ''
   try {
-    await createOrder(orderData, csrfToken.value)
+    await createOrder(orderData)
     resetFn()
     await loadOrders()
   } catch (err) {
@@ -134,7 +131,7 @@ const handleCreateOrder = async (orderData, resetFn) => {
 
 const handleDeleteOrder = async (id) => {
   try {
-    await deleteOrder(id, csrfToken.value)
+    await deleteOrder(id)
     await loadOrders()
   } catch (err) {
     alert(`Gagal menghapus: ${err.message}`)
@@ -153,7 +150,6 @@ const handleLogin = async ({ username, password }) => {
   authMessage.value = ''
   try {
     const result = await login(username, password)
-    csrfToken.value = result.csrf_token
     currentUser.value = result.user
     authMessage.value = `Berhasil login sebagai ${currentUser.value.username}.`
     await loadOrders()
@@ -171,9 +167,8 @@ const handleLogout = async () => {
   authError.value = ''
   authMessage.value = ''
   try {
-    await logout(csrfToken.value)
+    await logout()
     currentUser.value = null
-    csrfToken.value = ''
     orders.value = []
     users.value = []
     authMessage.value = 'Anda berhasil logout.'
@@ -191,7 +186,6 @@ const handleProfileUpdate = async (displayName) => {
   authMessage.value = ''
   try {
     currentUser.value = await updateProfile(
-      csrfToken.value,
       currentUser.value.id,
       displayName
     )
@@ -208,7 +202,7 @@ const handleCreateUser = async ({ username, password }) => {
   authError.value = ''
   authMessage.value = ''
   try {
-    const user = await createUser(csrfToken.value, username, password)
+    const user = await createUser(username, password)
     authMessage.value = `Akun ${user.username} berhasil dibuat dengan role user.`
     await loadUsers()
   } catch (err) {
@@ -226,7 +220,7 @@ const handleDeleteUser = async (user) => {
   authError.value = ''
   authMessage.value = ''
   try {
-    await deleteUser(csrfToken.value, user.id)
+    await deleteUser(user.id)
     authMessage.value = `Akun ${user.username} berhasil dihapus.`
     await loadUsers()
   } catch (err) {
@@ -241,7 +235,7 @@ const handleUpdateOrder = async (order) => {
     if (currentUser.value?.role === 'admin') {
       const newStatus = prompt(`Ubah status untuk ${order.customer_name}:`, order.status)
       if (newStatus && newStatus !== order.status) {
-        await updateOrder(order.id, { status: newStatus }, csrfToken.value)
+        await updateOrder(order.id, { status: newStatus })
         await loadOrders()
       }
       return
@@ -259,8 +253,7 @@ const handleUpdateOrder = async (order) => {
     if (notes === null) return
     await updateOrder(
       order.id,
-      { customer_name: customerName, quantity, notes },
-      csrfToken.value
+      { customer_name: customerName, quantity, notes }
     )
     await loadOrders()
   } catch (err) {
@@ -293,7 +286,6 @@ const handleUpdateOrder = async (order) => {
             <OrderForm :is-submitting="isSubmitting" :server-error="serverError" @create-order="handleCreateOrder" />
             <MenuForm
               v-if="currentUser.role === 'admin'"
-              :csrf-token="csrfToken"
               @menu-added="handleMenuAdded"
             />
           </div>

@@ -52,7 +52,7 @@ def login(
         max_age=TOKEN_LIFETIME_SECONDS,
         path="/",
     )
-    return AuthSessionResponse(user=user, csrf_token=csrf_token)
+    return AuthSessionResponse(user=user)
 
 
 @router.get("/session", response_model=AuthSessionResponse)
@@ -65,7 +65,7 @@ def get_session(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Sesi tidak valid",
         )
-    return AuthSessionResponse(user=user, csrf_token=csrf_token)
+    return AuthSessionResponse(user=user)
 
 
 @router.delete("/logout", status_code=status.HTTP_204_NO_CONTENT)
