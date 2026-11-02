@@ -2,6 +2,25 @@ from sqlalchemy import Column, Integer, String, Float, Boolean, TIMESTAMP, func,
 from sqlalchemy.orm import relationship
 from app.database import Base
 
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String(50), unique=True, nullable=False, index=True)
+    display_name = Column(String(100), nullable=False)
+    password_hash = Column(String(255), nullable=False)
+    role = Column(String(20), nullable=False, default="user")
+    created_at = Column(TIMESTAMP(timezone=True), server_default=func.now(), nullable=False)
+
+class AuthToken(Base):
+    __tablename__ = "auth_tokens"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    token_hash = Column(String(64), unique=True, nullable=False, index=True)
+    csrf_token_hash = Column(String(64), nullable=False)
+    expires_at = Column(Integer, nullable=False)
+
 class MenuItem(Base):
     __tablename__ = "menu_items"
 
@@ -16,6 +35,7 @@ class Order(Base):
     __tablename__ = "orders"
 
     id = Column(Integer, primary_key=True, index=True)
+    owner_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     order_number = Column(String(20), nullable=True) # <--- Ini yang tadi hilang
     time = Column(String(10), nullable=True)         # <--- Ini juga
     customer_name = Column(String(100), nullable=False)

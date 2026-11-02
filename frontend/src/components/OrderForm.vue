@@ -1,6 +1,5 @@
 <script setup>
 import { reactive, computed, ref, onMounted } from 'vue'
-import { STATUS_OPTIONS } from '../constants.js'
 import SectionHeading from './SectionHeading.vue'
 import QuantityStepper from './QuantityStepper.vue'
 import UiSelect from './UiSelect.vue'
@@ -29,7 +28,7 @@ onMounted(async () => {
 })
 
 // Ubah form.menu menjadi form.menu_id (karena kita mengirim ID, bukan string nama menu)
-const form = reactive({ customer_name: '', menu_id: '', quantity: 1, status: 'Baru', notes: '' })
+const form = reactive({ customer_name: '', menu_id: '', quantity: 1, notes: '' })
 const errors = reactive({ customer_name: '', quantity: '' })
 
 const labelClass = 'mb-2 block text-[15px] leading-[23px] text-muted'
@@ -74,8 +73,6 @@ const handleSubmit = () => {
     customer_name: form.customer_name.trim(),
     menu_item_id: form.menu_id, 
     quantity: form.quantity,
-    total_price: selectedMenuPrice.value * form.quantity,
-    status: form.status,
     notes: form.notes.trim() || 'Tanpa catatan khusus'
   }
   
@@ -112,10 +109,7 @@ const resetForm = () => {
       <!-- Perhatikan perubahan v-model menjadi form.menu_id -->
       <UiSelect id="menu" v-model="form.menu_id" label="Pilih menu" :options="menuOptions" />
 
-      <div class="grid grid-cols-2 gap-4">
-        <QuantityStepper v-model="form.quantity" label="Jumlah" id="quantity" :error="errors.quantity" />
-        <UiSelect id="status" v-model="form.status" label="Status" :options="STATUS_OPTIONS" />
-      </div>
+      <QuantityStepper v-model="form.quantity" label="Jumlah" id="quantity" :error="errors.quantity" />
 
       <div>
         <label for="notes" :class="labelClass">Catatan</label>
